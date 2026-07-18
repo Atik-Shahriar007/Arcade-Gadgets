@@ -1,14 +1,12 @@
 import Header from "@/components/Header";
+import HeroCarousel from "@/components/HeroCarousel";
 
 export default function Home() {
   return (
     <>
       <Header />
       <main className="flex-1">
-        {/* Hero carousel will go here */}
-        <section className="h-[420px] bg-slate/10 flex items-center justify-center">
-          <p className="text-slate font-body">Carousel placeholder</p>
-        </section>
+        <HeroCarousel />
 
         {/* Products section */}
         <section className="max-w-6xl mx-auto px-6 py-16">
