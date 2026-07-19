@@ -1,7 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Header from "@/components/Header";
+import ProductGallery from "@/components/ProductGallery";
 import { products } from "@/data/products";
 
 export default async function ProductPage({
@@ -23,34 +23,7 @@ export default async function ProductPage({
         <section className="max-w-6xl mx-auto px-6 py-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             {/* Image gallery */}
-            <div className="space-y-4">
-              <div className="relative w-full aspect-square bg-cream rounded-lg overflow-hidden border border-slate/15">
-                <Image
-                  src={product.images[0]}
-                  alt={product.name}
-                  fill
-                  priority
-                  className="object-cover"
-                />
-              </div>
-              {product.images.length > 1 && (
-                <div className="grid grid-cols-3 gap-3">
-                  {product.images.slice(1).map((img, i) => (
-                    <div
-                      key={i}
-                      className="relative aspect-square bg-cream rounded-md overflow-hidden border border-slate/15"
-                    >
-                      <Image
-                        src={img}
-                        alt={`${product.name} ${i + 2}`}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+            <ProductGallery images={product.images} productName={product.name} />
 
             {/* Product info */}
             <div>
