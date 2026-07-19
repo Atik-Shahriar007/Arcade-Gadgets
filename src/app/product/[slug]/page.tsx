@@ -1,8 +1,9 @@
-import Link from "next/link";
+import ProductActions from "@/components/ProductActions";
 import { notFound } from "next/navigation";
 import Header from "@/components/Header";
 import ProductGallery from "@/components/ProductGallery";
 import { products } from "@/data/products";
+
 
 export default async function ProductPage({
   params,
@@ -38,17 +39,12 @@ export default async function ProductPage({
                 {product.fullDescription}
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-3">
-                <button className="bg-amber text-ink font-body font-semibold px-6 py-3 rounded-md hover:opacity-90 transition-opacity">
-                  Add to Cart
-                </button>
-                <Link
-                  href={`/checkout?product=${product.slug}`}
-                  className="bg-ink text-cream font-body font-semibold px-6 py-3 rounded-md hover:opacity-90 transition-opacity text-center"
-                >
-                  Order Now
-                </Link>
-              </div>
+            <ProductActions
+                slug={product.slug}
+                name={product.name}
+                price={product.price}
+                image={product.images[0]}
+              /> 
             </div>
           </div>
         </section>
