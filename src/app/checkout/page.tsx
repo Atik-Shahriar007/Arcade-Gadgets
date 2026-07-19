@@ -5,6 +5,13 @@ import { useRouter } from "next/navigation";
 import Header from "@/components/Header";
 import { useCart } from "@/context/CartContext";
 
+const DELIVERY_OPTIONS = {
+  inside: { label: "Inside Dhaka", charge: 60 },
+  outside: { label: "Outside Dhaka", charge: 120 },
+} as const;
+
+type DeliveryZone = keyof typeof DELIVERY_OPTIONS;
+
 export default function CheckoutPage() {
   const { items, totalPrice, clearCart } = useCart();
   const router = useRouter();
@@ -12,8 +19,12 @@ export default function CheckoutPage() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
+  const [deliveryZone, setDeliveryZone] = useState<DeliveryZone | "">("");
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
+
+  const deliveryCharge = deliveryZone ? DELIVERY_OPTIONS[deliveryZone].charge : 0;
+  const grandTotal = totalPrice + deliveryCharge;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,6 +32,11 @@ export default function CheckoutPage() {
 
     if (!name.trim() || !phone.trim() || !address.trim()) {
       setError("Please fill in all fields.");
+      return;
+    }
+
+    if (!deliveryZone) {
+      setError("Please select a delivery area.");
       return;
     }
 
@@ -40,7 +56,10 @@ export default function CheckoutPage() {
           phone,
           address,
           items,
-          totalPrice,
+          subtotal: totalPrice,
+          deliveryZone: DELIVERY_OPTIONS[deliveryZone].label,
+          deliveryCharge,
+          totalPrice: grandTotal,
         }),
       });
 
@@ -80,9 +99,21 @@ export default function CheckoutPage() {
                     </div>
                   ))}
                 </div>
-                <div className="flex justify-between font-body font-bold border-t border-slate/20 pt-3">
+
+                <div className="space-y-2 border-t border-slate/20 pt-3 font-body text-sm">
+                  <div className="flex justify-between">
+                    <span>Subtotal</span>
+                    <span>৳{totalPrice}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Delivery Charge</span>
+                    <span>{deliveryZone ? `৳${deliveryCharge}` : "—"}</span>
+                  </div>
+                </div>
+
+                <div className="flex justify-between font-body font-bold border-t border-slate/20 pt-3 mt-3 text-lg">
                   <span>Total</span>
-                  <span>৳{totalPrice}</span>
+                  <span>৳{grandTotal}</span>
                 </div>
               </div>
 
@@ -119,6 +150,36 @@ export default function CheckoutPage() {
                     className="w-full border border-slate/30 rounded-md px-4 py-2 font-body focus:outline-none focus:border-amber"
                     placeholder="House, road, area, city"
                   />
+                </div>
+
+                <div>
+                  <label className="block font-body text-sm mb-2">Delivery Area</label>
+                  <div className="space-y-2">
+                    {(Object.keys(DELIVERY_OPTIONS) as DeliveryZone[]).map((zone) => (
+                      <label
+                        key={zone}
+                        className={`flex items-center justify-between border rounded-md px-4 py-3 cursor-pointer transition-colors ${
+                          deliveryZone === zone
+                            ? "border-amber bg-amber/10"
+                            : "border-slate/30"
+                        }`}
+                      >
+                        <span className="flex items-center gap-2 font-body text-sm">
+                          <input
+                            type="radio"
+                            name="deliveryZone"
+                            value={zone}
+                            checked={deliveryZone === zone}
+                            onChange={() => setDeliveryZone(zone)}
+                          />
+                          {DELIVERY_OPTIONS[zone].label}
+                        </span>
+                        <span className="font-body text-sm text-slate">
+                          ৳{DELIVERY_OPTIONS[zone].charge}
+                        </span>
+                      </label>
+                    ))}
+                  </div>
                 </div>
 
                 {error && <p className="text-red-500 text-sm font-body">{error}</p>}
