@@ -19,7 +19,7 @@ const slides = [
     cta: { label: "Explore Products", href: "/shop" },
   },
   {
-    image: "/images/hero-3.jpg",
+    image: "/images/hero-5.jpg",
     eyebrow: "Cash on Delivery",
     heading: "Order Now, Pay When It Arrives",
     sub: "Simple ordering, fast delivery, no online payment needed.",
