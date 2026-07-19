@@ -23,13 +23,17 @@ export default function Header() {
           <Link href="/contact" className="hover:text-amber transition-colors">
             Contact
           </Link>
-          <Link href="/cart" className="relative hover:text-amber transition-colors">
+          <Link
+            href="/cart"
+            className="relative flex flex-col items-center gap-0.5 hover:text-amber transition-colors"
+          >
             <ShoppingCart size={22} strokeWidth={2} />
             {totalItems > 0 && (
               <span className="absolute -top-2 -right-2 bg-amber text-ink text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
                 {totalItems}
               </span>
             )}
+            <span className="text-xs font-body leading-none">Cart</span>
           </Link>
         </nav>
       </div>
