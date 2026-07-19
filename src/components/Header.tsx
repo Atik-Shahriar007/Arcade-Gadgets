@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { ShoppingCart } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 
 export default function Header() {
@@ -23,9 +24,9 @@ export default function Header() {
             Contact
           </Link>
           <Link href="/cart" className="relative hover:text-amber transition-colors">
-            Cart
+            <ShoppingCart size={22} strokeWidth={2} />
             {totalItems > 0 && (
-              <span className="absolute -top-2 -right-3 bg-amber text-ink text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+              <span className="absolute -top-2 -right-2 bg-amber text-ink text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
                 {totalItems}
               </span>
             )}
