@@ -4,7 +4,7 @@ import { getSupabaseClient } from "@/lib/supabase";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { name, phone, address, items, totalPrice } = body;
+    const { name, phone, address, items, subtotal, deliveryZone, deliveryCharge, totalPrice } = body;
 
     if (!name || !phone || !address || !items || items.length === 0) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
@@ -19,6 +19,9 @@ export async function POST(req: NextRequest) {
         phone,
         address,
         items,
+        subtotal,
+        delivery_zone: deliveryZone,
+        delivery_charge: deliveryCharge,
         total_price: totalPrice,
       })
       .select()
