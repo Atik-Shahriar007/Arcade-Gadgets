@@ -44,6 +44,7 @@ export default async function ProductPage({
                 name={product.name}
                 price={product.price}
                 image={product.images[0]}
+                colors={product.colors}
               /> 
             </div>
           </div>
