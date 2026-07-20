@@ -31,46 +31,55 @@ export default function CartPage() {
                 {items.map((item) => (
                   <div
                     key={item.slug}
-                    className="flex items-center gap-4 bg-white border border-slate/15 rounded-lg p-4"
+                    className="flex flex-col sm:flex-row sm:items-center gap-4 bg-white border border-slate/15 rounded-lg p-4"
                   >
-                    <div className="relative w-20 h-20 flex-shrink-0 bg-cream rounded-md overflow-hidden">
-                      <Image src={item.image} alt={item.name} fill className="object-cover" />
+                    <div className="flex items-center gap-4">
+                      <div className="relative w-20 h-20 flex-shrink-0 bg-cream rounded-md overflow-hidden">
+                        <Image src={item.image} alt={item.name} fill className="object-cover" />
+                      </div>
+
+                      <div className="flex-1 min-w-0 sm:hidden">
+                        <h3 className="font-display font-semibold">{item.name}</h3>
+                        <p className="text-slate font-body text-sm">৳{item.price}</p>
+                      </div>
                     </div>
 
-                    <div className="flex-1 min-w-0">
+                    <div className="hidden sm:block flex-1 min-w-0">
                       <h3 className="font-display font-semibold">{item.name}</h3>
                       <p className="text-slate font-body text-sm">৳{item.price}</p>
                     </div>
 
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center justify-between sm:justify-end gap-4">
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => updateQuantity(item.slug, item.quantity - 1)}
+                          className="w-8 h-8 flex items-center justify-center border border-slate/30 rounded-md hover:bg-cream transition-colors"
+                          aria-label="Decrease quantity"
+                        >
+                          −
+                        </button>
+                        <span className="w-6 text-center font-body">{item.quantity}</span>
+                        <button
+                          onClick={() => updateQuantity(item.slug, item.quantity + 1)}
+                          className="w-8 h-8 flex items-center justify-center border border-slate/30 rounded-md hover:bg-cream transition-colors"
+                          aria-label="Increase quantity"
+                        >
+                          +
+                        </button>
+                      </div>
+
+                      <p className="font-body font-semibold w-16 text-right">
+                        ৳{item.price * item.quantity}
+                      </p>
+
                       <button
-                        onClick={() => updateQuantity(item.slug, item.quantity - 1)}
-                        className="w-8 h-8 flex items-center justify-center border border-slate/30 rounded-md hover:bg-cream transition-colors"
-                        aria-label="Decrease quantity"
+                        onClick={() => removeItem(item.slug)}
+                        className="text-slate hover:text-red-500 transition-colors text-sm font-body"
+                        aria-label="Remove item"
                       >
-                        −
-                      </button>
-                      <span className="w-6 text-center font-body">{item.quantity}</span>
-                      <button
-                        onClick={() => updateQuantity(item.slug, item.quantity + 1)}
-                        className="w-8 h-8 flex items-center justify-center border border-slate/30 rounded-md hover:bg-cream transition-colors"
-                        aria-label="Increase quantity"
-                      >
-                        +
+                        Remove
                       </button>
                     </div>
-
-                    <p className="font-body font-semibold w-20 text-right">
-                      ৳{item.price * item.quantity}
-                    </p>
-
-                    <button
-                      onClick={() => removeItem(item.slug)}
-                      className="text-slate hover:text-red-500 transition-colors text-sm font-body ml-2"
-                      aria-label="Remove item"
-                    >
-                      Remove
-                    </button>
                   </div>
                 ))}
               </div>
