@@ -30,7 +30,7 @@ export default function CartPage() {
               <div className="space-y-4 mb-8">
                 {items.map((item) => (
                   <div
-                    key={item.slug}
+                    key={`${item.slug}-${item.color || "default"}`}
                     className="flex flex-col sm:flex-row sm:items-center gap-4 bg-white border border-slate/15 rounded-lg p-4"
                   >
                     <div className="flex items-center gap-4">
@@ -40,19 +40,25 @@ export default function CartPage() {
 
                       <div className="flex-1 min-w-0 sm:hidden">
                         <h3 className="font-display font-semibold">{item.name}</h3>
+                        {item.color && (
+                          <p className="text-slate font-body text-xs">Color: {item.color}</p>
+                        )}
                         <p className="text-slate font-body text-sm">৳{item.price}</p>
                       </div>
                     </div>
 
                     <div className="hidden sm:block flex-1 min-w-0">
                       <h3 className="font-display font-semibold">{item.name}</h3>
+                      {item.color && (
+                        <p className="text-slate font-body text-xs">Color: {item.color}</p>
+                      )}
                       <p className="text-slate font-body text-sm">৳{item.price}</p>
                     </div>
 
                     <div className="flex items-center justify-between sm:justify-end gap-4">
                       <div className="flex items-center gap-2">
                         <button
-                          onClick={() => updateQuantity(item.slug, item.quantity - 1)}
+                          onClick={() => updateQuantity(item.slug, item.quantity - 1, item.color)}
                           className="w-8 h-8 flex items-center justify-center border border-slate/30 rounded-md hover:bg-cream transition-colors"
                           aria-label="Decrease quantity"
                         >
@@ -60,7 +66,7 @@ export default function CartPage() {
                         </button>
                         <span className="w-6 text-center font-body">{item.quantity}</span>
                         <button
-                          onClick={() => updateQuantity(item.slug, item.quantity + 1)}
+                          onClick={() => updateQuantity(item.slug, item.quantity + 1, item.color)}
                           className="w-8 h-8 flex items-center justify-center border border-slate/30 rounded-md hover:bg-cream transition-colors"
                           aria-label="Increase quantity"
                         >
@@ -73,7 +79,7 @@ export default function CartPage() {
                       </p>
 
                       <button
-                        onClick={() => removeItem(item.slug)}
+                        onClick={() => removeItem(item.slug, item.color)}
                         className="text-slate hover:text-red-500 transition-colors text-sm font-body"
                         aria-label="Remove item"
                       >
