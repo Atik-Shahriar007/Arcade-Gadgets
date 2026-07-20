@@ -7,6 +7,7 @@ interface OrderItem {
   name: string;
   price: number;
   quantity: number;
+  color?: string;
 }
 
 interface Order {
@@ -70,7 +71,8 @@ export default function AdminOrdersPage() {
                   {order.items.map((item, i) => (
                     <div key={i} className="flex justify-between text-sm font-body">
                       <span>
-                        {item.name} × {item.quantity}
+                        {item.name}
+                        {item.color && <span className="text-slate"> ({item.color})</span>} × {item.quantity}
                       </span>
                       <span>৳{item.price * item.quantity}</span>
                     </div>
