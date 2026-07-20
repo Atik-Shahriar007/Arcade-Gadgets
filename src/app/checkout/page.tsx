@@ -91,9 +91,13 @@ export default function CheckoutPage() {
                 <h2 className="font-display font-semibold text-lg mb-4">Order Summary</h2>
                 <div className="space-y-3 mb-4">
                   {items.map((item) => (
-                    <div key={item.slug} className="flex justify-between text-sm font-body">
+                    <div
+                      key={`${item.slug}-${item.color || "default"}`}
+                      className="flex justify-between text-sm font-body"
+                    >
                       <span>
-                        {item.name} × {item.quantity}
+                        {item.name}
+                        {item.color && <span className="text-slate"> ({item.color})</span>} × {item.quantity}
                       </span>
                       <span>৳{item.price * item.quantity}</span>
                     </div>
