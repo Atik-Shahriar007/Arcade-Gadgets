@@ -38,8 +38,9 @@ export async function POST(req: NextRequest) {
     // Send email notification (don't block the response if this fails)
     try {
       const itemsList = items
-        .map((item: { name: string; quantity: number; price: number }) =>
-          `${item.name} × ${item.quantity} — ৳${item.price * item.quantity}`
+        .map(
+          (item: { name: string; quantity: number; price: number; color?: string }) =>
+            `${item.name}${item.color ? ` (${item.color})` : ""} × ${item.quantity} — ৳${item.price * item.quantity}`
         )
         .join("\n");
 
