@@ -5,6 +5,7 @@ export interface Product {
   shortDescription: string;
   fullDescription: string;
   images: string[];
+  colors?: string[];
 }
 
 export const products: Product[] = [
@@ -31,6 +32,7 @@ export const products: Product[] = [
 ✅ সেফটি লক রয়েছে, তাই দুর্ঘটনাজনিত স্প্রে হওয়ার ঝুঁকি নেই।
 ✅ সবচেয়ে দারুন বিষয় হচ্ছে এই স্প্রের রেঞ্জ 10-12 feet তাই আক্রমণকারী যতজনই হোক আপনি থাকবেন নিরাপদে।`,
     images: ["/images/nato-spray-1.jpg", "/images/nato-spray-2.jpg", "/images/nato-spray-3.jpg"],
+    colors: ["Black", "Green", "Yellow"],
   },
   {
     slug: "801-type-taser",
