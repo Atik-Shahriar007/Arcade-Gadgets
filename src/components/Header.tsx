@@ -10,20 +10,20 @@ export default function Header() {
 
   return (
     <header className="w-full bg-ink text-cream">
-<div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-3">
-        <Link href="/" className="flex items-center gap-2 flex-shrink-0">
+<div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+        <Link href="/" className="flex items-center gap-2">
           <Image
             src="/images/logo.jpg"
             alt="Arcade Gadgets logo"
-            width={30}
-            height={30}
-            className="rounded-full object-cover flex-shrink-0"
+            width={36}
+            height={36}
+            className="rounded-full object-cover"
           />
-          <span className="font-display font-semibold text-base sm:text-xl tracking-tight">
+          <span className="font-display font-semibold text-xl tracking-tight">
             Arcade Gadgets
           </span>
         </Link>
-        <nav className="flex items-center gap-3 sm:gap-6 text-sm font-body">
+        <nav className="flex items-center gap-3 text-sm font-body">
           <Link href="/" className="hover:text-amber transition-colors">
             Home
           </Link>
