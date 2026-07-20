@@ -21,7 +21,7 @@ export default function ContactPage() {
               <div className="w-10 h-10 bg-amber/15 rounded-full flex items-center justify-center mb-3">
                 <Phone size={20} className="text-amber" />
               </div>
-              <h3 className="font-display font-semibold mb-2">Phone</h3>
+              <h3 className="font-display font-semibold mb-2">Phone / WhatsApp</h3>
               <span className="text-slate font-body">01761629615</span>
             </a>
 

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { ShoppingCart } from "lucide-react";
 import { useCart } from "@/context/CartContext";
@@ -10,8 +11,17 @@ export default function Header() {
   return (
     <header className="w-full bg-ink text-cream">
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-        <Link href="/" className="font-display font-semibold text-xl tracking-tight">
-          Arcade Gadgets
+<Link href="/" className="flex items-center gap-2">
+          <Image
+            src="/images/logo.jpg"
+            alt="Arcade Gadgets logo"
+            width={36}
+            height={36}
+            className="rounded-full object-cover"
+          />
+          <span className="font-display font-semibold text-xl tracking-tight">
+            Arcade Gadgets
+          </span>
         </Link>
         <nav className="flex items-center gap-6 text-sm font-body">
           <Link href="/" className="hover:text-amber transition-colors">
