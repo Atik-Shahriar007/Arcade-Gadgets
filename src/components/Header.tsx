@@ -19,7 +19,7 @@ export default function Header() {
             height={30}
             className="rounded-full object-cover flex-shrink-0"
           />
-          <span className="font-display font-semibold text-base sm:text-xl tracking-tight whitespace-nowrap">
+          <span className="font-display font-semibold text-base sm:text-xl tracking-tight">
             Arcade Gadgets
           </span>
         </Link>
