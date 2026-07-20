@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useCart } from "@/context/CartContext";
+import { useToast } from "@/context/ToastContext";
 
 const COLOR_SWATCHES: Record<string, string> = {
   Black: "#1B2430",
@@ -24,6 +25,7 @@ export default function ProductActions({
   colors?: string[];
 }) {
   const { addItem } = useCart();
+  const { showToast } = useToast();
   const [added, setAdded] = useState(false);
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [colorError, setColorError] = useState(false);
@@ -36,6 +38,7 @@ export default function ProductActions({
     setColorError(false);
     addItem({ slug, name, price, image, color: selectedColor || undefined });
     setAdded(true);
+    showToast("Item added to cart");
     setTimeout(() => setAdded(false), 2000);
   };
 

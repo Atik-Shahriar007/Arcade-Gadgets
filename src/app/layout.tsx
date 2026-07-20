@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Space_Grotesk, Inter } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/context/CartContext";
+import { ToastProvider } from "@/context/ToastContext";
 import Footer from "@/components/Footer";
 
 const spaceGrotesk = Space_Grotesk({
@@ -32,8 +33,10 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-cream text-ink">
         <CartProvider>
-          {children}
-          <Footer />
+          <ToastProvider>
+            {children}
+            <Footer />
+          </ToastProvider>
         </CartProvider>
       </body>
     </html>
