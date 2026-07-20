@@ -15,8 +15,8 @@ export default function Header() {
           <Image
             src="/images/logo.jpg"
             alt="Arcade Gadgets logo"
-            width={36}
-            height={36}
+            width={30}
+            height={30}
             className="rounded-full object-cover"
           />
           <span className="font-display font-semibold text-xl tracking-tight">
