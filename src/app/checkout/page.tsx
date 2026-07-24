@@ -77,7 +77,7 @@ export default function CheckoutPage() {
     <>
       <Header />
       <main className="flex-1">
-        <section className="max-w-2xl mx-auto px-6 py-12">
+        <section className="max-w-4xl mx-auto px-6 py-12">
           <h1 className="font-display font-semibold text-3xl mb-8">Checkout</h1>
 
           {items.length === 0 ? (
