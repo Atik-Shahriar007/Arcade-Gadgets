@@ -1,0 +1,16 @@
+name: Ping
+
+on:
+  schedule:
+    - cron: "00 00 */6 * *"
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping
+        run: |
+          curl --request GET \
+          --url https://gwxkbqqgmdorkxxomqun.supabase.co/rest/v1/orders \
+          --header 'apikey: sb_publishable_qdVRypLWYSpYpfZQ_dUPGw_NylGCmUG'
