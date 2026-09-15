@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Arcade Gadgets
 
-## Getting Started
+Arcade Gadgets is a Bangladesh-focused e-commerce storefront for practical personal-safety, utility, survival, and everyday-carry products. The interface is designed to feel calm, premium, and trustworthy rather than aggressive or game-like.
 
-First, run the development server:
+## Features
+
+- Responsive storefront homepage with category discovery and featured products
+- Static TypeScript product catalog with image galleries and optional color variants
+- Persistent guest cart using browser local storage
+- Cash-on-delivery checkout with Inside Dhaka / Outside Dhaka delivery zones
+- Supabase order storage and Resend email notification support
+- Password-protected admin order view
+- Accessible responsive navigation, purchase controls, empty states, and order confirmation
+
+## Stack
+
+Next.js App Router, React, TypeScript, Tailwind CSS v4, Supabase, Resend, and Lucide React icons. The project remains Vercel-compatible and does not require a separate backend service.
+
+## Local setup
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Create `.env.local` with the values used by your deployment. Never commit this file.
 
-## Learn More
+```text
+SUPABASE_URL=
+SUPABASE_SECRET_KEY=
+RESEND_API_KEY=
+ADMIN_PASSWORD=
+ADMIN_EMAIL=
+```
 
-To learn more about Next.js, take a look at the following resources:
+Supabase must contain an `orders` table matching the order fields used by `src/app/api/orders/route.ts`. Checkout intentionally uses cash on delivery; no online payment provider is configured.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `src/app/` — App Router pages and API routes
+- `src/components/` — shared navigation, gallery, purchase, and menu components
+- `src/context/` — cart and toast state providers
+- `src/data/products.ts` — current catalog and product descriptions
+- `src/lib/supabase.ts` — server-side Supabase client helper
+- `public/images/` — product and hero photography
 
-## Deploy on Vercel
+## Commands
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm run lint
+npm run build
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Deployment
+
+Push the repository to GitHub and connect it to Vercel. Add the environment variables in the Vercel project settings before deploying. Product additions currently require an update to `src/data/products.ts` and a new deployment.
+
+## Roadmap
+
+Useful future improvements include inventory visibility, a database-backed product editor, order status updates, and a more explicit delivery/returns information page once those business rules are finalized.

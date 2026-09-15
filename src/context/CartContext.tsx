@@ -34,6 +34,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (saved) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect -- hydrate client-only cart state from localStorage.
         setItems(JSON.parse(saved));
       }
     } catch {

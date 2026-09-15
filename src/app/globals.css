@@ -1,10 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --color-ink: #1B2430;
-  --color-cream: #F7F5F1;
-  --color-amber: #F0A202;
-  --color-slate: #6B7280;
+  --color-ink: #f4f1ea;
+  --color-cream: #101315;
+  --color-amber: #f5a524;
+  --color-slate: #a3abb4;
+  --surface: #191e22;
+  --surface-raised: #20272c;
+  --line: rgba(244, 241, 234, 0.12);
 }
 
 @theme inline {
@@ -16,23 +19,20 @@
   --font-body: var(--font-inter);
 }
 
-body {
-  background: var(--color-cream);
-  color: var(--color-ink);
-  font-family: var(--font-body), Arial, sans-serif;
-}
-
-@keyframes slide-up-fade {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-toast {
-  animation: slide-up-fade 0.3s ease-out;
-}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--color-cream); color: var(--color-ink); font-family: var(--font-body), Arial, sans-serif; }
+::selection { background: var(--color-amber); color: #101315; }
+:focus-visible { outline: 2px solid var(--color-amber); outline-offset: 3px; }
+.bg-white { background-color: var(--surface) !important; }
+.bg-cream { background-color: var(--color-cream) !important; }
+.border-slate\/15, .border-slate\/20 { border-color: var(--line) !important; }
+.border-slate\/30 { border-color: rgba(244,241,234,.2) !important; }
+.surface { background: var(--surface); border: 1px solid var(--line); }
+.bg-surface-raised { background: var(--surface-raised); }
+.surface-raised { background: var(--surface-raised); border: 1px solid var(--line); }
+.eyebrow { color: var(--color-amber); font-size: .7rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+.section-rule { border-top: 1px solid var(--line); }
+@keyframes slide-up-fade { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+.animate-toast { animation: slide-up-fade .3s ease-out; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; } }

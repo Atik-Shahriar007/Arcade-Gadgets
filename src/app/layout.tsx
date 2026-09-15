@@ -17,8 +17,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Arcade Gadgets | Stay Safe Be Prepared",
-  description: "Bangladesh No.1 Self-Defence Products Brand",
+  title: "Arcade Gadgets | Practical Gear for Everyday Readiness",
+  description: "Practical personal safety, utility, and everyday carry gadgets delivered across Bangladesh.",
 };
 
 export default function RootLayout({

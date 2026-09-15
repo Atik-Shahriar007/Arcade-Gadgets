@@ -1,95 +1,11 @@
 "use client";
-
 import { useState } from "react";
 import Link from "next/link";
 import { useCart } from "@/context/CartContext";
 import { useToast } from "@/context/ToastContext";
-
-const COLOR_SWATCHES: Record<string, string> = {
-  Black: "#1B2430",
-  Green: "#2F6B3A",
-  Yellow: "#F0D002",
-};
-
-export default function ProductActions({
-  slug,
-  name,
-  price,
-  image,
-  colors,
-}: {
-  slug: string;
-  name: string;
-  price: number;
-  image: string;
-  colors?: string[];
-}) {
-  const { addItem } = useCart();
-  const { showToast } = useToast();
-  const [added, setAdded] = useState(false);
-  const [selectedColor, setSelectedColor] = useState<string | null>(null);
-  const [colorError, setColorError] = useState(false);
-
-  const handleAddToCart = () => {
-    if (colors && colors.length > 0 && !selectedColor) {
-      setColorError(true);
-      return;
-    }
-    setColorError(false);
-    addItem({ slug, name, price, image, color: selectedColor || undefined });
-    setAdded(true);
-    showToast("Item added to cart");
-    setTimeout(() => setAdded(false), 2000);
-  };
-
-  return (
-    <div>
-      {colors && colors.length > 0 && (
-        <div className="mb-5">
-          <p className="font-body text-sm mb-2">
-            Color: {selectedColor ? <span className="font-semibold">{selectedColor}</span> : null}
-          </p>
-          <div className="flex gap-3">
-            {colors.map((color) => (
-              <button
-                key={color}
-                type="button"
-                onClick={() => {
-                  setSelectedColor(color);
-                  setColorError(false);
-                }}
-                aria-label={color}
-                className={`w-9 h-9 rounded-full border-2 transition-all ${
-                  selectedColor === color
-                    ? "border-amber scale-110"
-                    : "border-slate/30"
-                }`}
-                style={{ backgroundColor: COLOR_SWATCHES[color] || "#ccc" }}
-              />
-            ))}
-          </div>
-          {colorError && (
-            <p className="text-red-500 text-sm font-body mt-2">
-              Please select a color before adding to cart.
-            </p>
-          )}
-        </div>
-      )}
-
-      <div className="flex flex-col sm:flex-row gap-3">
-        <button
-          onClick={handleAddToCart}
-          className="bg-amber text-ink font-body font-semibold px-6 py-3 rounded-md hover:opacity-90 transition-opacity"
-        >
-          {added ? "Added ✓" : "Add to Cart"}
-        </button>
-        <Link
-          href={`/checkout?product=${slug}`}
-          className="bg-ink text-cream font-body font-semibold px-6 py-3 rounded-md hover:opacity-90 transition-opacity text-center"
-        >
-          Order Now
-        </Link>
-      </div>
-    </div>
-  );
-}
+const COLOR_SWATCHES: Record<string,string> = { Black:"#1b1d1e", Green:"#2f6b3a", Yellow:"#f0d002" };
+export default function ProductActions({slug,name,price,image,colors}:{slug:string;name:string;price:number;image:string;colors?:string[]}) { const {addItem}=useCart(); const {showToast}=useToast(); const [selectedColor,setSelectedColor]=useState<string|null>(null); const [quantity,setQuantity]=useState(1); const [added,setAdded]=useState(false); const [error,setError]=useState(false); const add=()=>{if(colors?.length&&!selectedColor){setError(true);return;} addItem({slug,name,price,image,color:selectedColor||undefined},quantity); setAdded(true); showToast("Item added to cart"); setTimeout(()=>setAdded(false),1800);}; return <div className="space-y-6">
+{colors?.length ? <div><p className="text-sm font-semibold mb-3">Color {selectedColor&&<span className="text-slate font-normal">· {selectedColor}</span>}</p><div className="flex gap-3">{colors.map(c=><button key={c} type="button" aria-label={`Select ${c}`} aria-pressed={selectedColor===c} onClick={()=>{setSelectedColor(c);setError(false)}} className={`w-10 h-10 rounded-full border-2 ${selectedColor===c?"border-amber scale-110":"border-slate/30"}`} style={{backgroundColor:COLOR_SWATCHES[c]||"#ccc"}} />)}</div>{error&&<p className="text-red-400 text-sm mt-2">Select a color to continue.</p>}</div>:null}
+<div><p className="text-sm font-semibold mb-3">Quantity</p><div className="inline-flex items-center border border-slate/30 rounded-md"><button type="button" onClick={()=>setQuantity(Math.max(1,quantity-1))} className="w-11 h-11 text-lg hover:bg-cream" aria-label="Decrease quantity">−</button><span className="w-10 text-center">{quantity}</span><button type="button" onClick={()=>setQuantity(quantity+1)} className="w-11 h-11 text-lg hover:bg-cream" aria-label="Increase quantity">+</button></div></div>
+<div className="grid sm:grid-cols-2 gap-3"><button onClick={add} className="bg-amber text-ink font-semibold px-5 py-3.5 rounded-md hover:bg-amber/90">{added?"Added to cart ✓":"Add to cart"}</button><Link href={`/checkout?product=${slug}`} className="border border-cream/25 text-ink font-semibold px-5 py-3.5 rounded-md text-center hover:bg-cream/10">Buy now</Link></div>
+</div>; }

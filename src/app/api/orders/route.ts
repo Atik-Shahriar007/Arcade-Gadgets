@@ -2,8 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { getSupabaseClient } from "@/lib/supabase";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -37,6 +35,10 @@ export async function POST(req: NextRequest) {
 
     // Send email notification (don't block the response if this fails)
     try {
+      if (!process.env.RESEND_API_KEY) {
+        throw new Error("RESEND_API_KEY is not configured");
+      }
+      const resend = new Resend(process.env.RESEND_API_KEY);
       const itemsList = items
         .map(
           (item: { name: string; quantity: number; price: number; color?: string }) =>
@@ -73,6 +75,5 @@ Total: ৳${totalPrice}`,
     return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
   }
 }
-
 
 
