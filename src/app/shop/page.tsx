@@ -2,5 +2,51 @@ import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/Header";
 import { products } from "@/data/products";
-export const metadata = { title: "Shop | Arcade Gadgets", description: "Browse practical personal safety, utility, and everyday carry gadgets." };
-export default function ShopPage(){ return <><Header/><main className="max-w-7xl mx-auto px-5 lg:px-8 py-14"><div className="max-w-2xl mb-12"><p className="eyebrow mb-3">The collection</p><h1 className="font-display text-4xl sm:text-5xl font-bold tracking-tight">Useful gear, thoughtfully selected.</h1><p className="text-slate mt-5 leading-relaxed">Explore compact tools for personal safety, preparedness, and everyday carry.</p></div><div className="grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-10">{products.map(p=><Link key={p.slug} href={`/product/${p.slug}`} className="group"><div className="relative aspect-square rounded-lg overflow-hidden bg-surface"><Image src={p.images[0]} alt={p.name} fill className="object-cover transition duration-500 group-hover:scale-105"/></div><h2 className="font-display font-semibold mt-4 leading-tight">{p.name}</h2><p className="text-slate text-sm mt-2 line-clamp-2">{p.shortDescription}</p><p className="text-amber font-semibold mt-3">৳{p.price}</p></Link>)}</div></main></>; }
+
+export default function ShopPage() {
+  return (
+    <>
+      <Header />
+      <main className="flex-1">
+        <section className="max-w-6xl mx-auto px-6 py-12">
+          <h1 className="font-display font-semibold text-3xl mb-2">
+            Shop All Products
+          </h1>
+          <p className="text-slate font-body mb-10">
+            Personal safety tools for everyday confidence.
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {products.map((product) => (
+              <Link
+                key={product.slug}
+                href={`/product/${product.slug}`}
+                className="group bg-white rounded-lg overflow-hidden border border-slate/15 hover:shadow-lg transition-shadow"
+              >
+                <div className="relative w-full aspect-square bg-cream">
+                  <Image
+                    src={product.images[0]}
+                    alt={product.name}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <div className="p-4">
+                  <h3 className="font-display font-semibold text-lg mb-1">
+                    {product.name}
+                  </h3>
+                  <p className="text-slate font-body text-sm mb-3 line-clamp-2">
+                    {product.shortDescription}
+                  </p>
+                  <span className="text-ink font-body font-bold">
+                    ৳{product.price}
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      </main>
+    </>
+  );
+}

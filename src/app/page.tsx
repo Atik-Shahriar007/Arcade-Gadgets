@@ -1,11 +1,59 @@
 import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/Header";
+import HeroCarousel from "@/components/HeroCarousel";
 import { products } from "@/data/products";
-const categories = [{ title: "Personal safety", text: "Practical tools for peace of mind.", image: "/images/police-spray-1.jpg" }, { title: "Everyday carry", text: "Compact gear that earns its place.", image: "/images/key-chain-1.jpg" }, { title: "Emergency utility", text: "Be ready for the unexpected.", image: "/images/key-chain-1.jpg" }];
-export default function Home() { return <><Header/><main>
-<section className="relative min-h-[600px] overflow-hidden"><Image src="/images/hero-1.jpg" alt="Practical gear arranged for everyday readiness" fill priority className="object-cover"/><div className="absolute inset-0 bg-gradient-to-r from-[#101315]/95 via-[#101315]/70 to-[#101315]/25"/><div className="relative max-w-7xl mx-auto px-5 lg:px-8 py-28 sm:py-36"><p className="eyebrow mb-5">Personal safety · utility · everyday carry</p><h1 className="font-display text-5xl sm:text-7xl font-bold tracking-tight max-w-3xl leading-[.98]">Smart gear.<br/><span className="text-amber">Ready for every situation.</span></h1><p className="mt-7 max-w-xl text-lg text-cream/75 leading-relaxed">Thoughtfully selected gadgets that help you move through everyday life with more confidence and preparedness.</p><div className="mt-9 flex flex-wrap gap-3"><Link href="/shop" className="bg-amber text-ink px-6 py-3.5 rounded-md font-semibold hover:bg-amber/90">Shop gadgets</Link><Link href="#categories" className="border border-cream/30 px-6 py-3.5 rounded-md font-semibold hover:bg-cream/10">Explore collection</Link></div></div></section>
-<section id="categories" className="max-w-7xl mx-auto px-5 lg:px-8 py-20"><div className="flex items-end justify-between mb-8"><div><p className="eyebrow mb-3">Shop with purpose</p><h2 className="font-display text-3xl sm:text-4xl font-bold">Find your kind of ready.</h2></div><Link href="/shop" className="hidden sm:block text-amber text-sm font-semibold">View all products →</Link></div><div className="grid md:grid-cols-3 gap-4">{categories.map(c=><Link href="/shop" key={c.title} className="group relative min-h-64 overflow-hidden rounded-lg"><Image src={c.image} alt={c.title} fill className="object-cover transition duration-500 group-hover:scale-105"/><div className="absolute inset-0 bg-gradient-to-t from-black/85 to-transparent"/><div className="relative h-full min-h-64 flex flex-col justify-end p-6"><h3 className="font-display text-xl font-bold">{c.title}</h3><p className="text-cream/70 text-sm mt-1">{c.text}</p></div></Link>)}</div></section>
-<section className="bg-surface-raised border-y border-slate/15"><div className="max-w-7xl mx-auto px-5 lg:px-8 py-20"><div className="flex items-end justify-between mb-8"><div><p className="eyebrow mb-3">Featured gear</p><h2 className="font-display text-3xl sm:text-4xl font-bold">Built for real life.</h2></div><Link href="/shop" className="text-amber text-sm font-semibold">Shop all →</Link></div><div className="grid grid-cols-2 lg:grid-cols-4 gap-4">{products.slice(0,4).map(p=><Link key={p.slug} href={`/product/${p.slug}`} className="group"><div className="relative aspect-square rounded-lg overflow-hidden bg-cream"><Image src={p.images[0]} alt={p.name} fill className="object-cover transition duration-500 group-hover:scale-105"/></div><p className="font-display font-semibold mt-4 leading-tight">{p.name}</p><p className="text-amber font-semibold mt-2">৳{p.price}</p></Link>)}</div></div></section>
-<section id="about" className="max-w-7xl mx-auto px-5 lg:px-8 py-20"><div className="grid md:grid-cols-3 gap-10"><div><p className="eyebrow mb-3">Why Arcade Gadgets</p><h2 className="font-display text-3xl font-bold">Less noise.<br/>More useful gear.</h2></div><div className="md:col-span-2 grid sm:grid-cols-3 gap-8 text-sm"><div><p className="font-semibold mb-2">Practical by design</p><p className="text-slate leading-relaxed">Every product is selected for portability, everyday utility, and clear purpose.</p></div><div><p className="font-semibold mb-2">Straightforward service</p><p className="text-slate leading-relaxed">Simple browsing, guest checkout, and cash on delivery for Bangladesh.</p></div><div><p className="font-semibold mb-2">Responsible readiness</p><p className="text-slate leading-relaxed">A calm, professional approach to personal safety and preparedness.</p></div></div></div></section>
-</main></>; }
+
+export default function Home() {
+  return (
+    <>
+      <Header />
+      <main className="flex-1">
+        <HeroCarousel />
+
+        {/* Products section */}
+        <section className="max-w-6xl mx-auto px-6 py-16">
+          <div className="flex items-center justify-between mb-8">
+            <h2 className="font-display font-semibold text-2xl">Our Products</h2>
+            <Link
+              href="/shop"
+              className="text-amber font-body text-sm font-semibold hover:opacity-80 transition-opacity"
+            >
+              View All →
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {products.map((product) => (
+              <Link
+                key={product.slug}
+                href={`/product/${product.slug}`}
+                className="group bg-white rounded-lg overflow-hidden border border-slate/15 hover:shadow-lg transition-shadow"
+              >
+                <div className="relative w-full aspect-square bg-cream">
+                  <Image
+                    src={product.images[0]}
+                    alt={product.name}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <div className="p-4">
+                  <h3 className="font-display font-semibold text-lg mb-1">
+                    {product.name}
+                  </h3>
+                  <p className="text-slate font-body text-sm mb-3 line-clamp-2">
+                    {product.shortDescription}
+                  </p>
+                  <span className="text-ink font-body font-bold">
+                    ৳{product.price}
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      </main>
+    </>
+  );
+}
