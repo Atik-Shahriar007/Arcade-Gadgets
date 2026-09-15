@@ -28,7 +28,10 @@ export default function ProductGallery({
           {images.map((img, i) => (
             <button
               key={i}
+              type="button"
               onClick={() => setSelected(i)}
+              aria-label={`View ${productName} image ${i + 1}`}
+              aria-current={i === selected ? "true" : undefined}
               className={`relative aspect-square bg-cream rounded-md overflow-hidden border-2 transition-colors ${
                 i === selected ? "border-amber" : "border-slate/15"
               }`}
