@@ -16,7 +16,6 @@ export default function MobileMenu({
       {/* Overlay - click outside to close */}
       <div
         onClick={onClose}
-        aria-hidden="true"
         className={`fixed inset-0 bg-black/50 z-40 transition-opacity duration-300 ${
           isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
@@ -24,14 +23,11 @@ export default function MobileMenu({
 
       {/* Sliding drawer */}
       <div
-        role="dialog"
-        aria-modal="true"
-        aria-label="Mobile navigation"
         className={`fixed top-0 left-0 h-full w-72 bg-ink text-cream z-50 shadow-xl transform transition-transform duration-300 ease-in-out ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="flex items-center justify-between px-5 py-4 border-b border-slate/15">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-cream/10">
           <Link href="/" onClick={onClose} className="flex items-center gap-2">
             <Image
               src="/images/logo.jpg"
@@ -47,7 +43,7 @@ export default function MobileMenu({
           <button
             onClick={onClose}
             aria-label="Close menu"
-            className="p-2 hover:text-amber transition-colors"
+            className="hover:text-amber transition-colors"
           >
             <X size={26} />
           </button>
